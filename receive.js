@@ -1,6 +1,6 @@
 import {connect} from 'amqplib';
 
-const connection = await connect('amqp://172.20.0.2');
+connection = await connect(`amqp://${process.env.RABBITMQ_HOST || 'localhost'}`);
 
 const channel = await connection.createChannel();
 
