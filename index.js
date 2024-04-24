@@ -1,13 +1,32 @@
-import {connect} from 'amqplib';
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+//controllers
+import searchController from "./Controllers/SearchController.js";
 
-const connection = await connect(`amqp://${process.env.RABBITMQ_HOST || 'localhost:5672'}`);
+//env inladen
+dotenv.config();
 
-const channel = await connection.createChannel();
+//app aanmaken
+const app = express();
+app.use(express.json());
 
-const queue = 'message';
+//debug aanzetten
+mongoose.set('debug', true);
+//database connectie maken
+mongoose.connect(process.env.URL);
 
-await channel.assertQueue(queue, { durable:false });
-
-channel.consume(queue, (msg) => {
-    console.log(`Received ${msg.content.toString()}`);
+mongoose.connection.on('connected', () => {
+  console.log('Mongoose connected to database');
 });
+
+//server aanmaken
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+//controller inlezen
+searchController(app)
+
+
