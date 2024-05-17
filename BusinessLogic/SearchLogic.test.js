@@ -21,6 +21,6 @@ describe('updatePatient', () => {
     // Mock the SearchPatient.findOne method to return null
     SearchPatient.findOne = jest.fn().mockResolvedValue(null);
 
-    await expect(updatePatient(oldEmail, updates)).rejects.toThrow('Internal server error');
+    await expect(updatePatient(oldEmail, updates)).rejects.toThrow('Internal server error'); 
   });
 });

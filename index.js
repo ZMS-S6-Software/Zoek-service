@@ -1,8 +1,9 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 //controllers
-import searchController from "./Controllers/SearchController.js";
+const searchController = require("./Controllers/SearchController.js");
+
 
 //env inladen
 dotenv.config();
