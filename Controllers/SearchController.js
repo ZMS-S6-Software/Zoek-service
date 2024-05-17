@@ -4,7 +4,7 @@ const patientService = patientLogic();
 
 
 // const connection = await connect(`amqp://${process.env.RABBITMQ_HOST || 'localhost'}`);
-const connection = await connect('amqp://localhost');
+const connection = await connect('amqp://rabbitmq:5672');
 const channel = await connection.createChannel();
 const queue = 'message';
 await channel.assertQueue(queue, { durable:false });
