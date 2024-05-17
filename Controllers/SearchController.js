@@ -1,5 +1,5 @@
-import { connect } from 'amqplib';
-import patientLogic from '../BusinessLogic/SearchLogic.js';
+const { connect } = require('amqplib');
+const patientLogic = require('../BusinessLogic/SearchLogic.js');
 const patientService = patientLogic();
 
 
