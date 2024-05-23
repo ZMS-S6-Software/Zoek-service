@@ -3,7 +3,7 @@ name: CD/back-end
 on:
   push:
     branches:
-      - 'main'
+      - new-main
 
 jobs:
   docker:
