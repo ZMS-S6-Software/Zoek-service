@@ -23,6 +23,11 @@ const patientService = patientLogic();
 //   }
 // });
 
+const fibonacci = (num) => {
+  if (num <= 1) return 1;
+  return fibonacci(num - 1) + fibonacci(num - 2);
+}
+
 // api calls
 export default function (app) {
   app.get("/search", async (req, res) => {
@@ -36,4 +41,15 @@ export default function (app) {
       res.status(500).json({ message: "Internal server error" });
     }
   });
+  
+  //schaling testen om bepaalde components te overloaden
+  app.get('/cpu', (req, res) => {
+    fibonacci(42);
+    res.send('Fibonacci Sequence');
+  })
+  
+  app.get('/memory', (req, res) => {
+    var arr = new Array(20000000).fill(0);
+    res.send('Array is created');
+  })
 }
