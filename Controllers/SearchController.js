@@ -1,27 +1,27 @@
-import { connect } from 'amqplib';
+// import { connect } from 'amqplib';
 import patientLogic from '../BusinessLogic/SearchLogic.js';
 const patientService = patientLogic();
 
 
-const connection = await connect(`amqp://${process.env.RABBITMQ_HOST || 'localhost'}`);
+// const connection = await connect(`amqp://${process.env.RABBITMQ_HOST || 'localhost'}`);
 
-const channel = await connection.createChannel();
-const queue = 'message';
-await channel.assertQueue(queue, { durable:false });
+// const channel = await connection.createChannel();
+// const queue = 'message';
+// await channel.assertQueue(queue, { durable:false });
 
-channel.consume(queue, (msg) => {
-  try {
-    const receivedMsg = JSON.parse(msg.content.toString());
-    if (receivedMsg.title === 'updatePatient') {
-      const updatedPatient = patientService.updatePatient(receivedMsg.oldEmail, receivedMsg.updatedPatient)
-      console.log(updatedPatient)
-      channel.ack(msg);
-    }
-  } catch (error) {
-    console.error(`Error parsing message: ${error.message}`);
-    channel.reject(msg, true);
-  }
-});
+// channel.consume(queue, (msg) => {
+//   try {
+//     const receivedMsg = JSON.parse(msg.content.toString());
+//     if (receivedMsg.title === 'updatePatient') {
+//       const updatedPatient = patientService.updatePatient(receivedMsg.oldEmail, receivedMsg.updatedPatient)
+//       console.log(updatedPatient)
+//       channel.ack(msg);
+//     }
+//   } catch (error) {
+//     console.error(`Error parsing message: ${error.message}`);
+//     channel.reject(msg, true);
+//   }
+// });
 
 const fibonacci = (num) => {
   if (num <= 1) return 1;
