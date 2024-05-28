@@ -1,4 +1,4 @@
-// import { connect } from 'amqplib';
+import { connect } from 'amqplib';
 import patientLogic from '../BusinessLogic/SearchLogic.js';
 const patientService = patientLogic();
 
