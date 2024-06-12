@@ -1,7 +1,7 @@
 // import { connect } from 'amqplib';
-import patientLogic from '../BusinessLogic/SearchLogic.js';
+import axios from "axios";
+import patientLogic from "../BusinessLogic/SearchLogic.js";
 const patientService = patientLogic();
-
 
 // const connection = await connect(`amqp://${process.env.RABBITMQ_HOST || 'localhost'}`);
 
@@ -26,13 +26,13 @@ const patientService = patientLogic();
 const fibonacci = (num) => {
   if (num <= 1) return 1;
   return fibonacci(num - 1) + fibonacci(num - 2);
-}
+};
 
 // api calls
 export default function (app) {
   app.get("/search", async (req, res) => {
     const { keyword } = req.body;
-    console.log(keyword)
+    console.log(keyword);
     try {
       const patients = await patientService.searchForPatient(keyword);
       res.json(patients);
@@ -41,15 +41,27 @@ export default function (app) {
       res.status(500).json({ message: "Internal server error" });
     }
   });
-  
+
   //schaling testen om bepaalde components te overloaden
-  app.get('/cpu', (req, res) => {
+  app.get("/cpu", (req, res) => {
     fibonacci(42);
-    res.send('Fibonacci Sequence');
-  })
-  
-  app.get('/memory', (req, res) => {
+    res.send("Fibonacci Sequence");
+  });
+
+  app.get("/memory", (req, res) => {
     var arr = new Array(20000000).fill(0);
-    res.send('Array is created');
-  })
+    res.send("Array is created");
+  });
+
+  app.get("/serverless", async (req, res) => {
+    try {
+      const response = await axios.get("https://square-bread-ba62.456410.workers.dev/");
+      const result = response.data;
+      console.log(result);
+      res.send(result);
+    } catch (error) {
+      console.error("Error fetching the URL:", error);
+      res.status(500).send(error);
+    }
+  });
 }
