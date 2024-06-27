@@ -21,7 +21,7 @@
     "mongoose": "^8.4.0"
   },
   "devDependencies": {
-    "mocha": "^10.4.0",
+    "mocha": "^10.5.2",
     "sinon": "^18.0.0"
   }
 }
